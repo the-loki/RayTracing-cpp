@@ -6,3 +6,6 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+/RayTracing/cmake-build-debug
+/RayTracing/cmake-build-release

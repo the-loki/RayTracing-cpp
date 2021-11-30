@@ -41,3 +41,17 @@ double Utils::clamp(double value, double min, double max) {
 
     return value;
 }
+
+
+void writeColor(std::ostream &out, Color pixelColor, int samplesPerPixel) {
+    auto[r, g, b] = pixelColor.store;
+    const auto scale = 1.0 / samplesPerPixel;
+
+    r *= scale;
+    g *= scale;
+    b *= scale;
+
+    out << static_cast<int>(256 * Utils::clamp(r, 0.0, 0.999)) << " "
+        << static_cast<int>(256 * Utils::clamp(g, 0.0, 0.999)) << " "
+        << static_cast<int>(256 * Utils::clamp(b, 0.0, 0.999)) << "\n";
+}

@@ -2,6 +2,8 @@
 // Created by Toomimaya on 11/30/21.
 //
 
+#pragma once
+
 #include "Vector3.hpp"
 #include "Ray.h"
 #include <vector>
