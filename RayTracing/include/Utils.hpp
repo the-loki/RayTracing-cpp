@@ -4,9 +4,9 @@
 
 #pragma once
 
+#include "Vector3.hpp"
 #include <cmath>
 #include <random>
-
 
 class Utils {
 public:
@@ -20,7 +20,11 @@ public:
 
     static Vector3 randomVector3();
 
+    static Vector3 randomUnitVector3();
+
     static Vector3 randomVector3(double min, double max);
+
+    static Vector3 reflect(const Vector3 &in, const Vector3 &n);
 
 public:
     inline const static double Pi = 3.1415926535897932385;
@@ -55,6 +59,17 @@ inline Vector3 Utils::randomVector3() {
 
 inline Vector3 Utils::randomVector3(double min, double max) {
     return {randomDouble(min, max), randomDouble(min, max), randomDouble(min, max)};
+}
+
+inline Vector3 Utils::randomUnitVector3() {
+    auto a = randomDouble(0, 2 * Pi);
+    auto z = randomDouble(-1, 1);
+    auto r = sqrt(1 - z * z);
+    return {r * cos(a), r * sin(a), z};
+}
+
+inline Vector3 Utils::reflect(const Vector3 &in, const Vector3 &n) {
+    return in - 2 * dot(in, n) * n;
 }
 
 inline void writeColor(std::vector<std::uint8_t> &imgData, Color pixelColor, int samplesPerPixel) {

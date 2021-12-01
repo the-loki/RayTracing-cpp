@@ -6,7 +6,8 @@
 #include "Utils.hpp"
 
 
-Sphere::Sphere(const Point3 &center, double radius) : center_(center), radius_(radius) {
+Sphere::Sphere(const Point3 &center, double radius, std::shared_ptr<Material> material)
+        : center_(center), radius_(radius), material_(material) {
 }
 
 bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitRecord &hitRecord) const {
@@ -25,6 +26,7 @@ bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitReco
             hitRecord.point = ray.at(distance);
             auto normal = (hitRecord.point - center_).normalize();
             hitRecord.setFaceNormal(ray, normal);
+            hitRecord.material = material_;
             return true;
         }
 
@@ -34,6 +36,7 @@ bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitReco
             hitRecord.point = ray.at(distance);
             auto normal = (hitRecord.point - center_).normalize();
             hitRecord.setFaceNormal(ray, normal);
+            hitRecord.material = material_;
             return true;
         }
     }
@@ -42,11 +45,5 @@ bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitReco
 }
 
 Point3 Sphere::randomPointInSphere() const {
-    while (true) {
-        if (auto delta = Utils::randomVector3(-radius_, radius_);delta.length() >= radius_) {
-            continue;
-        } else {
-            return delta + center_;
-        }
-    }
+    return Utils::randomUnitVector3() * Utils::randomDouble(0, radius_) + center_;
 }

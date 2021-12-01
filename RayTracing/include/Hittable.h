@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "Vector3.hpp"
 #include "Ray.h"
+#include "Vector3.hpp"
+#include "Material.h"
 #include <vector>
 #include <memory>
 
@@ -14,6 +15,7 @@ struct HitRecord {
     bool frontFace{false};
     Point3 point{};
     Vector3 normal{};
+    std::shared_ptr<Material> material;
 
     inline void setFaceNormal(const Ray &ray, const Vector3 &outWardNormal) {
         frontFace = dot(ray.direction(), outWardNormal) < 0;

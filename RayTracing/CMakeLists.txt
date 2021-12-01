@@ -10,5 +10,5 @@ add_definitions(-D STB_IMAGE_WRITE_IMPLEMENTATION)
 include_directories(${RayTracing_SOURCE_DIR}/include)
 include_directories(${RayTracing_SOURCE_DIR}/thirdparty)
 
-add_executable(RayTracing main.cpp src/Ray.cpp src/Hittable.cpp src/Camera.cpp src/Sphere.cpp)
+add_executable(RayTracing main.cpp src/Ray.cpp src/Hittable.cpp src/Camera.cpp src/Sphere.cpp include/Material.h src/Lambertain.cpp src/MetalMaterial.cpp)
 #target_link_libraries(RayTracing ${OpenCV_LIBS} pthread)
