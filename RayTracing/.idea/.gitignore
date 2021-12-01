@@ -7,5 +7,5 @@
 /dataSources/
 /dataSources.local.xml
 
-/RayTracing/cmake-build-debug
-/RayTracing/cmake-build-release
+/RayTracing/cmake-build-debug/
+/RayTracing/cmake-build-release/
