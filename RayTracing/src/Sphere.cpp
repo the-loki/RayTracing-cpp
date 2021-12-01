@@ -3,9 +3,11 @@
 //
 
 #include "Sphere.h"
+#include "Utils.hpp"
 
 
-Sphere::Sphere(const Point3 &center, double radius) : center_(center), radius_(radius) {}
+Sphere::Sphere(const Point3 &center, double radius) : center_(center), radius_(radius) {
+}
 
 bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitRecord &hitRecord) const {
     auto centerToOrigin = ray.origin() - center_;
@@ -37,4 +39,14 @@ bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitReco
     }
 
     return false;
+}
+
+Point3 Sphere::randomPointInSphere() const {
+    while (true) {
+        if (auto delta = Utils::randomVector3(-radius_, radius_);delta.length() >= radius_) {
+            continue;
+        } else {
+            return delta + center_;
+        }
+    }
 }

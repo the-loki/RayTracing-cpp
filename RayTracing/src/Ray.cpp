@@ -13,7 +13,7 @@ Point3 Ray::origin() const {
 }
 
 Point3 Ray::at(double length) const {
-    return origin_ * length * direction_;
+    return origin_ + length * direction_;
 }
 
 Ray::Ray(const Point3 &origin, const Vector3 &direction) : origin_(origin), direction_(direction) {}

@@ -14,6 +14,8 @@ public:
 
     bool hit(const Ray &ray, double distanceMin, double distanceMax, HitRecord &hitRecord) const override;
 
+    Point3 randomPointInSphere() const;
+
 protected:
     Point3 center_;
     double radius_;
