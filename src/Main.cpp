@@ -32,10 +32,10 @@ Color rayColor(const Ray &ray, const Hittable &world, int depth) {
 
 int main() {
     const int imageWidth = 400;
-    const double aspectRatio = 16.0 / 9.0;
-    const int imageHeight = static_cast<int>(imageWidth / aspectRatio);
     const int samplePerPixel = 100;
     const int rayReflectionTimes = 50;
+    const double aspectRatio = 16.0 / 9.0;
+    const int imageHeight = static_cast<int>(imageWidth / aspectRatio);
 
     auto leftMaterial = std::make_shared<DielectricMaterial>(1.5);
     auto groundMaterial = std::make_shared<LambertianMaterial>(Color(0.8, 0.8, 0.0));
