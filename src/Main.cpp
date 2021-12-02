@@ -49,7 +49,7 @@ int main() {
     world.add(std::make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), -0.4, leftMaterial));
     world.add(std::make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, rightMaterial));
 
-    Camera camera(aspectRatio, 2.0, 1.0, Point3{0, 0, 0});
+    Camera camera(Point3(), Point3(), Vector3(), aspectRatio, 90);
     std::vector<std::uint8_t> imgData;
 
     for (int y = 0; y < imageHeight; ++y) {

@@ -9,7 +9,7 @@
 
 class Camera {
 public:
-    Camera(double aspectRatio, double vpHeight, double focalLength, Point3 origin);
+    Camera(Point3 lookFrom, Point3 lookAt, Vector3 vUp, double aspectRatio, double vFov);
 
     Ray getRay(double u, double v);
 
