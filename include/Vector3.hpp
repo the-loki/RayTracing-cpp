@@ -38,7 +38,7 @@ public:
 
     TVector3 &operator/=(double a);
 
-    TVector3<Tp> normalize();
+    [[nodiscard]] TVector3 normalize() const;
 
     [[nodiscard]] double length() const;
 
@@ -118,7 +118,7 @@ double TVector3<Tp>::lengthSquared() const {
 }
 
 template<typename Tp>
-inline TVector3<Tp> TVector3<Tp>::normalize() {
+inline TVector3<Tp> TVector3<Tp>::normalize() const {
     return (*this / length());
 }
 

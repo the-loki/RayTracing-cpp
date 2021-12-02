@@ -6,7 +6,7 @@
 
 #include "Ray.h"
 
-class HitRecord;
+struct HitRecord;
 
 class Material {
 public:

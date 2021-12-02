@@ -17,26 +17,26 @@ bool Sphere::hit(const Ray &ray, double distanceMin, double distanceMax, HitReco
     auto c = centerToOrigin.lengthSquared() - radius_ * radius_;
     auto discriminant = halfB * halfB - a * c;
 
+    const auto setHitRecord = [&hitRecord, &ray](auto &distance, auto &center, auto &material) {
+        hitRecord.distance = distance;
+        hitRecord.point = ray.at(distance);
+        auto normal = (hitRecord.point - center).normalize();
+        hitRecord.setFaceNormal(ray, normal);
+        hitRecord.material = material;
+    };
+
     if (discriminant > 0) {
         auto sqrtD = sqrt(discriminant);
         auto distance = (-halfB - sqrtD) / a;
 
         if (distance > distanceMin && distance < distanceMax) {
-            hitRecord.distance = distance;
-            hitRecord.point = ray.at(distance);
-            auto normal = (hitRecord.point - center_).normalize();
-            hitRecord.setFaceNormal(ray, normal);
-            hitRecord.material = material_;
+            setHitRecord(distance, center_, material_);
             return true;
         }
 
         distance = (-halfB + sqrtD) / a;
         if (distance > distanceMin && distance < distanceMax) {
-            hitRecord.distance = distance;
-            hitRecord.point = ray.at(distance);
-            auto normal = (hitRecord.point - center_).normalize();
-            hitRecord.setFaceNormal(ray, normal);
-            hitRecord.material = material_;
+            setHitRecord(distance, center_, material_);
             return true;
         }
     }

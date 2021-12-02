@@ -26,6 +26,8 @@ public:
 
     static Vector3 reflect(const Vector3 &in, const Vector3 &n);
 
+    static Vector3 refract(const Vector3 &in, const Vector3 &n, double e);
+
 public:
     inline const static double Pi = 3.1415926535897932385;
     inline const static double Infinity = std::numeric_limits<double>::infinity();
@@ -70,6 +72,14 @@ inline Vector3 Utils::randomUnitVector3() {
 
 inline Vector3 Utils::reflect(const Vector3 &in, const Vector3 &n) {
     return in - 2 * dot(in, n) * n;
+}
+
+inline Vector3 Utils::refract(const Vector3 &in, const Vector3 &n, double e) {
+    auto inNormalized = in.normalize();
+    auto cosTheta = dot(-inNormalized, n);
+    auto l2 = (inNormalized + n * cosTheta) * e;
+    auto l1 = -n * sqrt(std::abs(1.0 - l2.lengthSquared()));
+    return l1 + l2;
 }
 
 inline void writeColor(std::vector<std::uint8_t> &imgData, Color pixelColor, int samplesPerPixel) {
