@@ -28,6 +28,8 @@ public:
 
     static Vector3 refract(const Vector3 &in, const Vector3 &n, double e);
 
+    static double schlick(double cosine, double refIdx);
+
 public:
     inline const static double Pi = 3.1415926535897932385;
     inline const static double Infinity = std::numeric_limits<double>::infinity();
@@ -75,11 +77,16 @@ inline Vector3 Utils::reflect(const Vector3 &in, const Vector3 &n) {
 }
 
 inline Vector3 Utils::refract(const Vector3 &in, const Vector3 &n, double e) {
-    auto inNormalized = in.normalize();
-    auto cosTheta = dot(-inNormalized, n);
-    auto l2 = (inNormalized + n * cosTheta) * e;
-    auto l1 = -n * sqrt(std::abs(1.0 - l2.lengthSquared()));
+    auto cosTheta = dot(-in, n);
+    auto l1 = e * (in + cosTheta * n);
+    auto l2 = -sqrt(fabs(1.0 - l1.lengthSquared())) * n;
     return l1 + l2;
+}
+
+inline double Utils::schlick(double cosine, double refIdx) {
+    auto r0 = (1 - refIdx) / (1 + refIdx);
+    r0 *= r0;
+    return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
 inline void writeColor(std::vector<std::uint8_t> &imgData, Color pixelColor, int samplesPerPixel) {

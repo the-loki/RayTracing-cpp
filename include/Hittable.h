@@ -18,7 +18,7 @@ struct HitRecord {
     std::shared_ptr<Material> material;
 
     inline void setFaceNormal(const Ray &ray, const Vector3 &outWardNormal) {
-        frontFace = dot(ray.direction(), outWardNormal) < 0;
+        frontFace = dot(ray.direction(), outWardNormal) < 0;//当未使用折射的时候，仍然有部分同向，此处有一点不理解
         normal = frontFace ? outWardNormal : -outWardNormal;
     }
 };

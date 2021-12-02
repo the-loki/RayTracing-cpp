@@ -6,6 +6,7 @@
 #include "stb_image_write.h"
 #include "Lambertain.h"
 #include "MetalMaterial.h"
+#include "DielectricMaterial.h"
 
 Color rayColor(const Ray &ray, const Hittable &world, int depth) {
     if (depth <= 0) {
@@ -36,16 +37,17 @@ int main() {
     const int samplePerPixel = 100;
     const int rayReflectionTimes = 50;
 
+    auto leftMaterial = std::make_shared<DielectricMaterial>(1.5);
     auto groundMaterial = std::make_shared<LambertianMaterial>(Color(0.8, 0.8, 0.0));
-    auto centerMaterial = std::make_shared<LambertianMaterial>(Color(0.7, 0.3, 0.3));
-    auto leftMaterial = std::make_shared<MetalMaterial>(Color(0.8, 0.8, 0.8), 0.3);
-    auto rightMaterial = std::make_shared<MetalMaterial>(Color(0.8, 0.6, 0.2), 1.0);
+    auto centerMaterial = std::make_shared<LambertianMaterial>(Color(0.1, 0.2, 0.5));
+    auto rightMaterial = std::make_shared<MetalMaterial>(Color(0.8, 0.6, 0.2), 0.0);
 
     HittableList world;
-    world.add(std::make_shared<Sphere>(Point3{0, 0, -1}, 0.5, centerMaterial));
-    world.add(std::make_shared<Sphere>(Point3{-1.0, 0, -1}, 0.5, leftMaterial));
-    world.add(std::make_shared<Sphere>(Point3{1.0, 0, -1}, 0.5, rightMaterial));
-    world.add(std::make_shared<Sphere>(Point3{0, -100.5, -1}, 100, groundMaterial));
+    world.add(std::make_shared<Sphere>(Point3(0.0, -100.5, -1.0), 100.0, groundMaterial));
+    world.add(std::make_shared<Sphere>(Point3(0.0, 0.0, -1.0), 0.5, centerMaterial));
+    world.add(std::make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), 0.5, leftMaterial));
+    world.add(std::make_shared<Sphere>(Point3(-1.0, 0.0, -1.0), -0.4, leftMaterial));
+    world.add(std::make_shared<Sphere>(Point3(1.0, 0.0, -1.0), 0.5, rightMaterial));
 
     Camera camera(aspectRatio, 2.0, 1.0, Point3{0, 0, 0});
     std::vector<std::uint8_t> imgData;
