@@ -1,2 +1,5 @@
-# RayTracing using cpp 
-Personal Graphics Leaning.
+# RayTracing-cpp
+
+cpp implementation of 《Ray Tracing In Weekend》.
+
+![](image.bmp)
