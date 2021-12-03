@@ -5,17 +5,32 @@
 #include "Camera.h"
 #include "Utils.hpp"
 
-Camera::Camera(Point3 lookFrom, Point3 lookAt, Vector3 vUp, double aspectRatio, double vFov) : origin_({0, 0, 0}) {
+Camera::Camera(Point3 lookFrom,
+               Point3 lookAt,
+               Vector3 vUp,
+               double vFov,
+               double aspectRatio,
+               double apertureRadius,
+               double focusDist)
+        : apertureRadius_(apertureRadius) {
+
     auto theta = Utils::degreesToRadians(vFov);
     auto h = tan(theta / 2);
     auto vh = 2.0 * h;
     auto vw = aspectRatio * vh;
-    vertical_ = {0, vh, 0};
-    horizontal_ = {vw, 0, 0};
-    double focalLength = 1.0;
-    lowerLeftCorner_ = origin_ - horizontal_ / 2 - vertical_ / 2 - Vector3(0, 0, focalLength);
+
+    w_ = (lookFrom - lookAt).normalize();
+    u_ = cross(vUp, w_).normalize();
+    v_ = cross(w_, u_);
+
+    origin_ = lookFrom;
+    vertical_ = focusDist * vh * v_;
+    horizontal_ = focusDist * vw * u_;
+    lowerLeftCorner_ = origin_ - horizontal_ / 2 - vertical_ / 2 - focusDist * w_;
 }
 
-Ray Camera::getRay(double u, double v) {
-    return Ray{origin_, lowerLeftCorner_ + u * horizontal_ + v * vertical_ - origin_};
+Ray Camera::getRay(double s, double t) {//景深的原理还有些许疑惑
+    auto rd = apertureRadius_ * Utils::randomInUnitDisk();//从圆盘随机发射射线
+    auto offset = u_ * rd.x + v_ * rd.y;
+    return Ray{origin_ + offset, lowerLeftCorner_ + s * horizontal_ + t * vertical_ - origin_ - offset};
 }

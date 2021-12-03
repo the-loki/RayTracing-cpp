@@ -22,6 +22,8 @@ public:
 
     static Vector3 randomUnitVector3();
 
+    static Vector3 randomInUnitDisk();
+
     static Vector3 randomVector3(double min, double max);
 
     static Vector3 reflect(const Vector3 &in, const Vector3 &n);
@@ -87,6 +89,15 @@ inline double Utils::schlick(double cosine, double refIdx) {
     auto r0 = (1 - refIdx) / (1 + refIdx);
     r0 *= r0;
     return r0 + (1 - r0) * pow((1 - cosine), 5);
+}
+
+inline Vector3 Utils::randomInUnitDisk() {
+    while (true) {
+        auto p = Vector3(randomDouble(-1, 1), randomDouble(-1, 1), 0);
+        if (p.lengthSquared() >= 1)
+            continue;
+        return p;
+    }
 }
 
 inline void writeColor(std::vector<std::uint8_t> &imgData, Color pixelColor, int samplesPerPixel) {

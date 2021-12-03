@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by MSI-PC on 2021/12/2.
 //
 
@@ -13,4 +13,3 @@ public:
 protected:
     double refIdx_;//折射率
 };
-
