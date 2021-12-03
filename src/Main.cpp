@@ -103,7 +103,7 @@ int main() {
     auto logicCoreNum = static_cast<int>(std::thread::hardware_concurrency());
     omp_set_num_threads(logicCoreNum);
 
-    const int width = 1200;
+    const int width = 1920;
     const int samplePerPixel = 500;
     const int reflectionTimes = 50;
     const double aspectRatio = 3.0 / 2.0;
@@ -114,7 +114,7 @@ int main() {
     auto lookAt = Point3(0, 0, 0);
     auto lookFrom = Point3(12, 2, 3);
     auto distToFocus = 10.0;
-    Camera cam(lookFrom, lookAt, vUp, 20, aspectRatio, 0.1, distToFocus);
+    Camera cam(lookFrom, lookAt, vUp, 20, aspectRatio, 0.05, distToFocus);
     std::vector<std::uint8_t> imgData;
 
     for (int y = 0; y < height; ++y) {
