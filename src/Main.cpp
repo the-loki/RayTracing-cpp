@@ -103,10 +103,10 @@ int main() {
     auto logicCoreNum = static_cast<int>(std::thread::hardware_concurrency());
     omp_set_num_threads(logicCoreNum);
 
-    const int width = 1920;
+    const int width = 3840;
     const int samplePerPixel = 500;
     const int reflectionTimes = 50;
-    const double aspectRatio = 3.0 / 2.0;
+    const double aspectRatio = 16.0 / 9.0;
     const int height = static_cast<int>(width / aspectRatio);
     HittableList world = randomWorld();
 
