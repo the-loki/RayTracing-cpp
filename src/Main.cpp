@@ -103,7 +103,7 @@ int main() {
     auto logicCoreNum = static_cast<int>(std::thread::hardware_concurrency());
     omp_set_num_threads(logicCoreNum);
 
-    const int width = 3840;
+    const int width = 1280;
     const int samplePerPixel = 500;
     const int reflectionTimes = 50;
     const double aspectRatio = 16.0 / 9.0;
